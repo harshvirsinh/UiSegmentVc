@@ -11,6 +11,7 @@ class SegmentedViewController: UIViewController {
 
     @IBOutlet var viewContainer: UIView!
     @IBOutlet var segmentcontrol: UISegmentedControl!
+    var counter = 0
     var views: [UIView]!
     var postview1: UIView!
     var newUserview2: UIView!
@@ -18,6 +19,17 @@ class SegmentedViewController: UIViewController {
     var tag4: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        //MARK: -pageViewController
+    
+        
+        //MARK: -Swipe Gesture
+        segmentcontrol.selectedSegmentIndex = counter
+        let swipeleft = UISwipeGestureRecognizer(target: self, action: #selector(handlegesture(getrure:)))
+        self.view.addGestureRecognizer(swipeleft)
+        swipeleft.direction = .left
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handlegesture(getrure:)))
+        swipeRight.direction = .right
+        self.viewContainer.addGestureRecognizer(swipeRight)
         views = [UIView]()
         views.append(PostVc().view)
         views.append(NewUserVc().view)
@@ -28,27 +40,47 @@ class SegmentedViewController: UIViewController {
             viewContainer.addSubview(v)
         }
         viewContainer.bringSubviewToFront(views[0])
-//postview1 = PostVc().view
-//        newUserview2 = NewUserVc().view
-//        hotUser3 = HotUserVc().view
-//        tag4 = TagVc().view
         
-//        viewContainer.addSubview(postview1)
-//        viewContainer.addSubview(newUserview2)
-//        viewContainer.addSubview(hotUser3)
-//        viewContainer.addSubview(tag4)
         navigationItem.title = "Segmented View"
+
         
         self.segmentcontrol.frame = CGRect(x: self.segmentcontrol.frame.minX, y: self.segmentcontrol.frame.minY, width: segmentcontrol.frame.width, height: 50)
         segmentcontrol.highlightSelectedesegment()
-                
-        // Do any additional setup after loading the view.
     }
-    
+    //MARK: -pageViewController code
+   
+    //MARK: -SwipeGesture
+    @objc func handlegesture(getrure:UISwipeGestureRecognizer){
+        if counter >= 0 && counter < views.count{
+            if getrure.direction == UISwipeGestureRecognizer.Direction.right
+            {
+                if counter != 0{
+                    counter = counter - 1
+                  
+                    segmentcontrol.selectedSegmentIndex = counter
+                    segmentcontrol.underLinePosition()
+                    self.viewContainer.bringSubviewToFront(views[counter])
+
+                }
+            }
+            if getrure.direction == UISwipeGestureRecognizer.Direction.left
+            {
+                if counter != views.count-1
+                {
+                    counter = counter+1
+                    segmentcontrol.selectedSegmentIndex = counter
+                    segmentcontrol.underLinePosition()
+
+                    self.viewContainer.bringSubviewToFront(views[counter])
+                }
+            }
+        }
+    }
 
     @IBAction func segmentValuechngd(_ sender: UISegmentedControl) {
         segmentcontrol.underLinePosition()
         self.viewContainer.bringSubviewToFront(views[sender.selectedSegmentIndex])
+        counter = segmentcontrol.selectedSegmentIndex
     }
     
     

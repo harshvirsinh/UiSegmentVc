@@ -11,8 +11,7 @@ class TagVc: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+       view.layer.cornerRadius = 30        // Do any additional setup after loading the view.
     }
 
 

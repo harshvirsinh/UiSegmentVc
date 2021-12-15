@@ -11,7 +11,7 @@ class HotUserVc: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.layer.cornerRadius = 30
         // Do any additional setup after loading the view.
     }
 

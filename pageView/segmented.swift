@@ -48,7 +48,7 @@ extension UISegmentedControl{
     func highlightSelectedesegment(){
         removeBorder()
         let lineWidth: CGFloat = self.bounds.size.width / CGFloat(self.numberOfSegments)
-        let lineHeight:CGFloat = 9.0
+        let lineHeight:CGFloat = 0.9
         let lineXPosition = CGFloat(selectedSegmentIndex * Int(lineWidth))
         let lineYPosition = self.bounds.size.height - 0.7
         let underLineFrame = CGRect(x: lineXPosition, y: lineYPosition, width: lineWidth, height: lineHeight)
@@ -63,7 +63,7 @@ extension UISegmentedControl{
         guard let underLine = self.viewWithTag(1) else {return}
         let xPosition = (self.bounds.width / CGFloat(self.numberOfSegments))*CGFloat(selectedSegmentIndex)
         
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.8, options: .curveEaseInOut,animations: {
+        UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.8, options: .curveEaseInOut,animations: {
             underLine.frame.origin.x = xPosition})
  
     }
